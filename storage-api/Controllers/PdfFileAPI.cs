@@ -7,15 +7,13 @@ namespace storage_api.Controllers
     [Route("")]
     public class PdfFileAPI : ControllerBase
     {
-        // this is the name of the folder where all pdf files will be stored
-        const string folderName = "Storage";
         /**
          * This is the upload endpoint
          * Receive a file using Form-data
          * The received file will be saved under the "folderName" folder
          */
         [HttpPost("upload-pdf")]
-        public async Task<IActionResult> UploadPdf(IFormFile file)
+        public async Task<IActionResult> UploadPdf(IFormFile file, string folderName)
         {
             try
             {
@@ -57,10 +55,19 @@ namespace storage_api.Controllers
          * where the pdf filename is "file.pdf"
          */
         [HttpGet("get-pdf")]
-        public IActionResult GetPdf(String filename)
+        public IActionResult GetPdf(String filename, string folderName)
         {
             // get the full path of the pdf storage folder
             string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, folderName));
+            //check if the directory exists
+            if (!Directory.Exists(path))
+            {
+                // if not exists, return Not Found
+                return NotFound(new
+                {
+                    Message = "Directory does not exist!"
+                });
+            }
             // get the full path of the pdf file
             string filePath = Path.Combine(path, filename);
             // construct a file Info object to verify if the file exists
@@ -84,27 +91,37 @@ namespace storage_api.Controllers
          * where the pdf filename is "file.pdf"
          */
         [HttpDelete("delete-pdf")]
-        public IActionResult DeletePdf(String filename)
+        public IActionResult DeletePdf(String filename, string folderName)
         {
             // get the full path of the pdf storage folder
             string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, folderName));
+            //check if the directory exists
+            if (!Directory.Exists(path))
+            {
+                // if not exists, return Not Found
+                return NotFound(new
+                {
+                    Message = "Directory does not exist!"
+                });
+            }
             // get the full path of the pdf file
             string filePath = Path.Combine(path, filename);
             // construct a file Info object to verify if the file exists
             FileInfo file = new FileInfo(filePath);
-            if(file.Exists)
+            if (file.Exists)
             {
                 // delete the file: this require high privildge to run it 
                 file.Delete();
                 // return a success message
                 return Ok(new
                 {
-                    Message= $"File '{filename}' deleted successfully"
+                    Message = $"File '{filename}' deleted successfully"
                 });
             }
             // in case of the file to delete not exist, return not found error with a message
-            return NotFound(new {
-                Message="File Not found"
+            return NotFound(new
+            {
+                Message = "File Not found"
             });
         }
 
@@ -113,13 +130,22 @@ namespace storage_api.Controllers
          * will return a list of file names
          */
         [HttpGet("list-files")]
-        public IEnumerable<string> ListFiles()
+        public ActionResult<string> ListFiles(string folderName)
         {
             // get the full path of the pdf storage folder
             string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, folderName));
+            //check if the directory exists
+            if (!Directory.Exists(path))
+            {
+                // if not exists, return Not Found
+                return NotFound(new
+                {
+                    Message = "Directory does not exist!"
+                });
+            }
             // get the filenames from the path
             IEnumerable<string> allfiles = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).Select(fullPath => new FileInfo(fullPath).Name);
-            return allfiles;
+            return Ok(allfiles);
         }
     }
 }
