@@ -107,5 +107,19 @@ namespace storage_api.Controllers
                 Message="File Not found"
             });
         }
+
+        /**
+         * This endpoint will list all the files in the directory
+         * will return a list of file names
+         */
+        [HttpGet("list-files")]
+        public IEnumerable<string> ListFiles()
+        {
+            // get the full path of the pdf storage folder
+            string path = Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, folderName));
+            // get the filenames from the path
+            IEnumerable<string> allfiles = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories).Select(fullPath => new FileInfo(fullPath).Name);
+            return allfiles;
+        }
     }
 }
