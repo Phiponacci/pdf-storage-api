@@ -12,3 +12,19 @@ Once you have the solution open, you can start the Web API project and make requ
 2. GET /get-pdf: Get the file specified by the `filename` parameter from the folder specified by `folderName` parameter.
 3. DELETE /delete-pdf: Delete the file specified by the `filename` parameter from the folder specified by `folderName` parameter.
 4. GET /list-files: List all the pdf files in the folder specified by `folderName` parameter.
+
+# Reach us on Fiverr & Upwork
+
+[![Fiverr](https://img.shields.io/badge/Fiverr-1DBF73.svg?style=for-the-badge&logo=Fiverr&logoColor=white)](https://www.fiverr.com/phiponatchi)
+[![Upwork](https://img.shields.io/badge/Upwork-6FDA44.svg?style=for-the-badge&logo=Upwork&logoColor=white)](https://www.upwork.com/freelancers/~01556fb0a54a5fa971)
+[![Portfolio](https://img.shields.io/badge/GitHub%20Pages-222222.svg?style=for-the-badge&logo=GitHub-Pages&logoColor=white)](https://phiponacci.github.io/portfolio/)
+
+# Donations
+
+If you found ***PDF-Storage-API*** useful, please consider making a donation to support its ongoing development. Your contribution will help ensure that we can continue to provide updates and improvements to the app.
+
+Developer paypal email: <leo.phibonacci@gmail.com>
+
+[![Donate with PayPal](https://raw.githubusercontent.com/stefan-niedermann/paypal-donate-button/master/paypal-donate-button.png)](https://www.paypal.com)
+
+Thank you for your support!
