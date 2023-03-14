@@ -2,7 +2,7 @@
 This ASP.NET Web API allows users to transfer PDF files from one folder to another using REST API calls.
 
 ## Getting Started
-To get started, clone this repository to your local machine and open the solution file in Visual Studio. You will need to have .NET Framework installed.
+To get started, clone this repository to your local machine and open the solution file in Visual Studio. You will need to have .NET 6 or above installed.
 
 ## Usage
 
